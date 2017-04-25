@@ -23,13 +23,29 @@ class StudentTestCase(LiveServerTestCase):
         # the name of the site in the heading.
         brand_element = self.browser.find_element_by_css_selector('.navbar-brand')
         self.assertEqual('JMAD', brand_element.text)
-        self.fail('Incomplete Test')
 
         # He sees the inputs of search form, including 
         # labels and placeholders.
+        instrument_input = self.browser.find_element_by_css_selector(
+                'input#jmad-instrument'
+                )
+        self.assertIsNotNone(self.browser.find_element_by_css_selector(
+            'label[for="jmad-instrument"]'))
+        self.assertEqual(instrument_input.get_attribute('placeholder'),
+                'i.e. trumpet')
+        artist_input = self.browser.find_element_by_css_selector(
+                'input#jmad-artist')
+        self.assertIsNotNone(self.browser.find_element_by_css_selector(
+            'label[for="jmad-artist"]'))
+        self.assertEqual(artist_input.get_attribute('placeholder'),
+                'i.e. Davis')
 
         # He types in the name of his instrument and submits
         # it.
+        instrument_input.send_keys('saxophone')
+        self.browser\
+                .find_element_by_css_selector('form button').click()
+        self.fail('Incomplete Test')
 
         # He sees too many search results...
 
