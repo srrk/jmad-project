@@ -4,7 +4,8 @@ from selenium import webdriver
 class StudentTestCase(LiveServerTestCase):
 
     def setUp(self):
-        self.browser = webdriver.Firefox()
+        # self.browser = webdriver.Firefox()
+        self.browser = webdriver.Chrome()
         #self.browser.implicitly_wait(2)
 
     def tearDown(self):
@@ -45,12 +46,23 @@ class StudentTestCase(LiveServerTestCase):
         instrument_input.send_keys('saxophone')
         self.browser\
                 .find_element_by_css_selector('form button').click()
-        self.fail('Incomplete Test')
 
         # He sees too many search results...
+        search_results = self.browser.find_elements_by_css_selector(
+                        '.jmad-search-result'
+                        )
+        self.assertGreater(len(search_results), 2)
 
         # ...so he adds an artist to his search query and 
         # gets a more manageable list
+        second_artist_input = self.browser\
+            .find_element_by_css_selector('input#jmad-artist')
+        self.browser\
+            .find_element_by_css_selector('form button').click()
+        second_search_results = self.browser\
+            .find_elements_by_css_selector('.jmad-search-result')
+        self.assertEqual(len(second_search_results), 2)
+        self.fail('Incomplete Test')
 
         # He clicks on a search result.
 
