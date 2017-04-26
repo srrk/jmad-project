@@ -51,7 +51,7 @@ class IndexViewTestCase(SolosBaseTestCase):
         self.assertEqual(len(solos), 1)
         self.assertEqual(solos[0].artist, 'Rich')
 
-class SoloViewTestCase(TestCase):
+class SoloViewTestCase(SolosBaseTestCase):
 
     def setUp(self):
         self.factory = RequestFactory()
@@ -65,7 +65,7 @@ class SoloViewTestCase(TestCase):
 
         response = SoloDetailView.as_view()(
                 request,
-                self.drum_solo.pk
+                pk=self.drum_solo.pk
         )
 
         self.assertEqual(response.status_code, 200)
