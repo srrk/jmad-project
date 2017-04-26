@@ -12,7 +12,10 @@ class StudentTestCase(LiveServerTestCase):
         self.solo1 = Solo.objects.create(
             instrument='saxophone',
             artist='John Coltrane',
-            track='My Favorite Things'
+            track='My Favorite Things',
+            album='My Favorite Things',
+            start_time='2:06',
+            end_time='4:01'
         )
         self.solo2 = Solo.objects.create(
             instrument='saxophone',
@@ -22,7 +25,8 @@ class StudentTestCase(LiveServerTestCase):
         self.solo3 = Solo.objects.create(
             instrument='saxophone',
             artist='Cannoball Adderley',
-            track='Waltz for Debby'
+            track='Waltz for Debby',
+            album='Know what I mean?'
         )
 
     def tearDown(self):
@@ -106,7 +110,7 @@ class StudentTestCase(LiveServerTestCase):
         self.assertEqual(
                 self.browser.find_element_by_css_selector(
                     '#jmad-album').text,
-                'Kind of Blue'
+                'My Favorite Things'
         )
 
         # He also sees the start time and end time of the 
